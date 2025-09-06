@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CanveX - About Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+            opacity: 0; /* Initially hidden for fade-in */
+            animation: fadeInAnimation ease 1s forwards;
+        }
+
+        /* Page Transition Animation */
+        @keyframes fadeInAnimation {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeOutAnimation {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        body.fade-out {
+            animation: fadeOutAnimation ease 1s forwards;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 30px 50px;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 100px;
+            opacity: 0.1;
+            letter-spacing: -3px;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 180px 50px 120px;
+            background: linear-gradient(180deg, #000 0%, #111 50%, #000 100%);
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 40px;
+            line-height: 1.1;
+        }
+
+        .about-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            padding: 100px 50px;
+            background: #000;
+        }
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(135deg, #111, #000);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0, 0.5);
+        }
+        
+        .portfolio-card-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .portfolio-card-content {
+            padding: 30px;
+        }
+
+        .portfolio-card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-card-description {
+            font-size: 1rem;
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .nav-links { display: none; }
+            .about-section { padding: 120px 20px 50px; }
+            .portfolio-section { padding: 80px 20px; }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CanveX</div>
+            <ul class="nav-links">
+                <li><a href="project.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-content fade-in">
+            <h2>Meet Hussain</h2>
+            <p>The visionary founder and creative mastermind behind CanveX. With an unwavering passion for graphic design and an eye for aesthetic excellence.</p>
+            <p>Our journey began with a simple belief that every idea deserves to be transformed into something visually extraordinary. We don't just create designs – we craft visual experiences that resonate and inspire.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio-section">
+        <h2 class="section-title fade-in">OUR WORK</h2>
+        <div class="portfolio-container">
+            <!-- Portfolio Item 1 -->
+            <div class="portfolio-card fade-in">
+                <div class="portfolio-card-image" style="background-image: url('https://placehold.co/600x400/1E90FF/FFFFFF?text=Project+Alpha');"></div>
+                <div class="portfolio-card-content">
+                    <h3 class="portfolio-card-title">Project Alpha</h3>
+                    <p class="portfolio-card-description">A complete branding and web development project for a leading tech startup.</p>
+                </div>
+            </div>
+            <!-- Portfolio Item 2 -->
+            <div class="portfolio-card fade-in">
+                <div class="portfolio-card-image" style="background-image: url('https://placehold.co/600x400/8A2BE2/FFFFFF?text=Project+Beta');"></div>
+                <div class="portfolio-card-content">
+                    <h3 class="portfolio-card-title">Project Beta</h3>
+                    <p class="portfolio-card-description">Social media campaign management and content creation for a lifestyle brand.</p>
+                </div>
+            </div>
+            <!-- Portfolio Item 3 -->
+            <div class="portfolio-card fade-in">
+                <div class="portfolio-card-image" style="background-image: url('https://placehold.co/600x400/32CD32/FFFFFF?text=Project+Gamma');"></div>
+                <div class="portfolio-card-content">
+                    <h3 class="portfolio-card-title">Project Gamma</h3>
+                    <p class="portfolio-card-description">SEO optimization and digital strategy that boosted organic traffic by 300%.</p>
+                </div>
+            </div>
+             <!-- Portfolio Item 4 -->
+            <div class="portfolio-card fade-in">
+                <div class="portfolio-card-image" style="background-image: url('https://placehold.co/600x400/FF4500/FFFFFF?text=Project+Delta');"></div>
+                <div class="portfolio-card-content">
+                    <h3 class="portfolio-card-title">Project Delta</h3>
+                    <p class="portfolio-card-description">Stunning graphic design and illustration work for a global marketing campaign.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Canvex | Amravati, India | Design, Develop, & Dominate.</p>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Page Transition
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#') && !this.hasAttribute('target')) {
+                    e.preventDefault();
+                    document.body.classList.add('fade-out');
+                    setTimeout(() => { window.location.href = href; }, 1000);
+                }
+            });
+        });
+        
+        // Enhanced hover effeåcts
+        document.querySelectorAll('.portfolio-card, .nav-links a').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                cursor.style.transform = 'scale(2)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                cursor.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

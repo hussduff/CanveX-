@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CanveX - Our Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+            opacity: 0; /* Initially hidden for fade-in */
+            animation: fadeInAnimation ease 1s forwards;
+        }
+
+        /* Page Transition Animation */
+        @keyframes fadeInAnimation {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeOutAnimation {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        body.fade-out {
+            animation: fadeOutAnimation ease 1s forwards;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 30px 50px;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 100px;
+            opacity: 0.1;
+            letter-spacing: -3px;
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 180px 50px 120px;
+            background: #050505;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #111, #000);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0, 0.6);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .service-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .service-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .nav-links { display: none; }
+            .services-section { padding: 120px 20px 50px; }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CanveX</div>
+            <ul class="nav-links">
+                <li><a href="project.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2 class="section-title fade-in">OUR SERVICES</h2>
+        <div class="services-container">
+            <!-- Service Item 1 -->
+            <div class="service-card fade-in">
+                <div class="service-icon">✦</div>
+                <h3 class="service-title">Graphic Design</h3>
+                <p class="service-description">From memorable logos to stunning marketing materials, we create visuals that tell your story and captivate your audience with clarity and style.</p>
+            </div>
+            <!-- Service Item 2 -->
+            <div class="service-card fade-in">
+                <div class="service-icon">◆</div>
+                <h3 class="service-title">Illustration</h3>
+                <p class="service-description">Our custom illustrations bring your unique ideas to life, adding a touch of artistic flair and creative precision that makes your brand unforgettable.</p>
+            </div>
+            <!-- Service Item 3 -->
+            <div class="service-card fade-in">
+                <div class="service-icon">▲</div>
+                <h3 class="service-title">Branding</h3>
+                <p class="service-description">We build comprehensive brand identities from the ground up, ensuring a consistent and memorable experience that resonates with your target audience.</p>
+            </div>
+            <!-- Service Item 4 -->
+            <div class="service-card fade-in">
+                <div class="service-icon">●</div>
+                <h3 class="service-title">Website Development</h3>
+                <p class="service-description">We design and develop beautiful, responsive, and user-friendly websites that not only look great but also perform flawlessly to meet your business goals.</p>
+            </div>
+            <!-- Service Item 5 -->
+            <div class="service-card fade-in">
+                <div class="service-icon">📈</div>
+                <h3 class="service-title">SEO</h3>
+                <p class="service-description">Boost your online visibility and drive organic traffic with our data-driven SEO strategies, tailored to place you at the top of search engine results.</p>
+            </div>
+            <!-- Service Item 6 -->
+            <div class="service-card fade-in">
+                <div class="service-icon">📱</div>
+                <h3 class="service-title">Social Media Management</h3>
+                <p class="service-description">We manage your social media presence with engaging content and strategic campaigns, building a strong community around your brand.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Canvex | Amravati, India | Design, Develop, & Dominate.</p>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Page Transition
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && !href.startsWith('#') && !this.hasAttribute('target')) {
+                    e.preventDefault();
+                    document.body.classList.add('fade-out');
+                    setTimeout(() => { window.location.href = href; }, 1000);
+                }
+            });
+        });
+        
+        // Enhanced hover effects
+        document.querySelectorAll('.service-card, .nav-links a').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                cursor.style.transform = 'scale(2)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                cursor.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CanveX - Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+            /* Added for page transition */
+            animation: fadeInAnimation ease 1s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        /* Page Transition Animation */
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+             }
+        }
+
+        @keyframes fadeOutAnimation {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        body.fade-out {
+            animation: fadeOutAnimation ease 1s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 30px 50px;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Section Base Styling */
+        .section {
+            padding: 100px 50px;
+            background: #000;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 60px;
+            opacity: 0.8;
+            letter-spacing: -2px;
+        }
+
+        /* Contact Page Section */
+        .contact-page-section {
+            padding-top: 150px;
+            padding-bottom: 100px;
+            background: #050505;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        .contact-form-container h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 25px;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .contact-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 1rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 18px 20px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form button:hover {
+            background: #ccc;
+            transform: translateY(-3px);
+        }
+
+        .contact-info-container {
+            padding-top: 20px;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            filter: invert(100%) grayscale(80%);
+        }
+
+        .contact-info-item {
+            margin-bottom: 25px;
+        }
+        
+        .contact-info-item h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            opacity: 0.5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-info-item p,
+        .contact-info-item a {
+            font-size: 1.1rem;
+            color: #fff;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+        
+        .contact-info-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .social-media-links {
+            margin-top: 40px;
+            display: flex;
+            gap: 25px;
+        }
+        
+        .social-media-links a {
+            color: #fff;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-media-links a:hover {
+            transform: scale(1.2);
+            color: #ddd;
+        }
+
+        /* Note Slider */
+        .note-slider-container {
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            min-height: 100px;
+        }
+        
+        .note-slide {
+            display: none;
+            text-align: center;
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+        
+        .note-slide.active {
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                display: none; /* Hiding for simplicity, can be replaced with a hamburger menu */
+            }
+
+            .contact-page-section {
+                padding: 120px 20px 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CanveX</div>
+            <ul class="nav-links">
+                <li><a href="project.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Page Section -->
+    <section id="contact-page" class="contact-page-section">
+        <div class="contact-container fade-in">
+            <div class="contact-form-container">
+                <h1>Ready to start your project? Let's get in touch.</h1>
+                <form action="contact.php" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="mobile" placeholder="Mobile Number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email Id" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="service" required>
+                            <option value="" disabled selected>Service you are looking for</option>
+                            <option value="seo">SEO</option>
+                            <option value="social-media">Social Media Management</option>
+                            <option value="graphic-design">Graphic Design</option>
+                            <option value="website-development">Website Development</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" rows="4" placeholder="Tell us more about your project..."></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+            <div class="contact-info-container">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.188981665424!2d77.7479833153966!3d20.86469499919853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd69f7a5b3b5e73%3A0x4a4b8f8b3d4e4f8d!2sNajmi%20Apartment!5e0!3m2!1sen!2sin!4v1660309858599!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-info-item">
+                    <h3>Address</h3>
+                    <p>Najmi Apartment, 4th floor, Flat 402, Wahdat Nagar, Amravati, Maharashtra 444601, India.</p>
+                </div>
+                <div class="contact-info-item">
+                    <h3>Contact</h3>
+                     <p><a href="tel:+917757891758">+91 7757891758</a><br><a href="tel:+919970144467">+91 9970144467</a></p>
+                     <p><a href="mailto:canvexdesign@gmail.com">canvexdesign@gmail.com</a></p>
+                </div>
+                 <div class="social-media-links">
+                    <a href="https://www.linkedin.com/company/canvex/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/canvex0/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                <div class="note-slider-container">
+                    <div class="note-slide">
+                        <p>"Note: We believe in direct communication. Expect a call from us within 24 hours of your inquiry."</p>
+                    </div>
+                    <div class="note-slide">
+                        <p>"Note: Our creative process is collaborative. We'll work closely with you to bring your vision to life."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Canvex | Amravati, India | Design, Develop, & Dominate.</p>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Note Slider
+        const slides = document.querySelectorAll('.note-slide');
+        const randomIndex = Math.floor(Math.random() * slides.length);
+        slides[randomIndex].classList.add('active');
+
+        // Enhanced hover effects for links and form elements
+        document.querySelectorAll('a, button, input, select, textarea').forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(2)';
+                cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = '#fff';
+            });
+        });
+
+        // Page Transition
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Check if it's an internal page link and not just an anchor or mail/tel link
+                if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !this.hasAttribute('target')) {
+                    e.preventDefault();
+                    document.body.classList.add('fade-out');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 1000); // Match CSS animation duration
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
