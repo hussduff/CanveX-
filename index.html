@@ -1,411 +1,609 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CanveX - Design Playground</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+ntent: center;
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-            /* Hide the default scrollbar to let the script handle scrolling */
-            overflow-y: scroll; 
-            cursor: none;
-            opacity: 0;
-            animation: fadeInAnimation 1s ease-in-out forwards;
-        }
-        
-        /* The main container that will be scrolled */
-        #page-content {
-            position: relative;
-            z-index: 2;
-        }
+background-image: url('hussain.png');
 
-        /* This is the fixed container for our WebGL canvas */
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-        }
+background-repeat: no-repeat;
 
-        /* Page Transition Overlay */
-        #transition-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            z-index: 10001;
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
-        }
+background-size: cover;
 
-        body.is-leaving #transition-overlay {
-            transform: scaleY(1);
-            transform-origin: top;
-        }
-        
-        @keyframes fadeInAnimation {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+background-position: center;
 
-        /* Custom Cursor */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.1s ease, background-color 0.1s ease;
-            mix-blend-mode: difference;
-            transform: translate(-50%, -50%);
-        }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 30px 50px;
-            background: rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 2rem; font-weight: 900; letter-spacing: -2px; }
-        .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 1.1rem; transition: all 0.3s ease; }
-        .nav-links a:hover { transform: translateY(-2px); }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
+}
 
-        .hero-content { z-index: 2; }
-        .hero-logo-container {
-             /* This container is used by the liquid effect script */
-        }
-        .hero-logo {
-            width: clamp(200px, 20vw, 400px);
-            margin-bottom: 30px;
-            animation: logoFloat 6s ease-in-out infinite;
-            filter: brightness(0) invert(1);
-            opacity: 0; /* Hide original image, canvas will render it */
-        }
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0px) scale(1); filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(255, 255, 255, 0.3)); }
-            50% { transform: translateY(-10px) scale(1.05); filter: brightness(0) invert(1) drop-shadow(0 0 30px rgba(255, 255, 255, 0.5)); }
-        }
-        .hero-subtitle { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 300; margin-bottom: 50px; opacity: 0.8; letter-spacing: 2px; }
-        
-        .scroll-indicator {
-            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-            width: 2px; height: 60px; background: rgba(255, 255, 255, 0.3); border-radius: 2px;
-        }
-        .scroll-indicator::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 30px;
-            background: #fff; border-radius: 2px; animation: scrollDown 2s infinite ease-in-out;
-        }
-        @keyframes scrollDown {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(30px); opacity: 0; }
-        }
 
-        /* Other sections */
-        .features-section, .profile-section {
-            padding: 150px 50px;
-            background: #000;
-            position: relative;
-        }
-        
-        .section-title {
-            text-align: center; font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900; margin-bottom: 100px;
-            opacity: 0.1; letter-spacing: -3px;
-        }
 
-        .features-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 50px; max-width: 1200px; margin: 0 auto;
-        }
-        .feature-item {
-            text-align: center; padding: 50px 30px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 15px; transition: all 0.3s ease;
-        }
-        .feature-number { font-size: 3rem; font-weight: 900; opacity: 0.3; margin-bottom: 20px; }
-        .feature-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
-        
-        .profile-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; max-width: 1000px; margin: 0 auto;
-        }
-        .profile-item {
-            padding: 30px; background: linear-gradient(135deg, #111, #000);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px;
-            text-align: center;
-        }
-        .profile-label { font-weight: 700; margin-bottom: 10px; opacity: 0.6; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .fade-in { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav { padding: 20px 30px; }
-            .nav-links { display: none; }
-            .features-grid, .profile-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+
+
+
+/* Features Section */
+
+.features-section {
+
+padding: 150px 50px;
+
+background: #000;
+
+}
+
+
+
+.features-grid {
+
+display: grid;
+
+grid-template-columns: repeat(3, 1fr);
+
+gap: 50px;
+
+max-width: 1200px;
+
+margin: 0 auto;
+
+}
+
+
+
+.feature-item {
+
+text-align: center;
+
+padding: 50px 30px;
+
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+
+border: 1px solid rgba(255, 255, 255, 0.08);
+
+border-radius: 15px;
+
+transition: all 0.3s ease;
+
+}
+
+
+
+.feature-item:hover {
+
+transform: translateY(-5px);
+
+background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+
+border-color: rgba(255, 255, 255, 0.2);
+
+}
+
+
+
+.feature-number {
+
+font-size: 3rem;
+
+font-weight: 900;
+
+opacity: 0.3;
+
+margin-bottom: 20px;
+
+}
+
+
+
+.feature-title {
+
+font-size: 1.5rem;
+
+font-weight: 700;
+
+margin-bottom: 15px;
+
+}
+
+
+
+.feature-description {
+
+opacity: 0.7;
+
+line-height: 1.6;
+
+}
+
+
+
+/* Contact Section */
+
+.contact-section {
+
+padding: 150px 50px;
+
+background: linear-gradient(180deg, #000 0%, #111 100%);
+
+text-align: center;
+
+}
+
+
+
+.contact-content {
+
+max-width: 800px;
+
+margin: 0 auto;
+
+}
+
+
+
+.contact-title {
+
+font-size: clamp(3rem, 8vw, 6rem);
+
+font-weight: 900;
+
+margin-bottom: 50px;
+
+letter-spacing: -3px;
+
+}
+
+
+
+.contact-info {
+
+display: flex;
+
+justify-content: center;
+
+gap: 60px;
+
+margin-top: 80px;
+
+}
+
+
+
+.contact-item {
+
+padding: 30px;
+
+background: rgba(255, 255, 255, 0.03);
+
+border: 1px solid rgba(255, 255, 255, 0.1);
+
+border-radius: 15px;
+
+transition: all 0.3s ease;
+
+}
+
+
+
+.contact-item:hover {
+
+transform: translateY(-5px);
+
+background: rgba(255, 255, 255, 0.08);
+
+border-color: rgba(255, 255, 255, 0.3);
+
+}
+
+
+
+.contact-item a {
+
+color: #fff;
+
+text-decoration: none;
+
+font-size: 1.2rem;
+
+font-weight: 500;
+
+}
+
+
+
+/* Company Profile */
+
+.profile-section {
+
+padding: 100px 50px;
+
+background: #000;
+
+}
+
+
+
+.profile-grid {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+gap: 20px;
+
+max-width: 1000px;
+
+margin: 0 auto;
+
+}
+
+
+
+.profile-item {
+
+padding: 30px;
+
+background: linear-gradient(135deg, #111, #000);
+
+border: 1px solid rgba(255, 255, 255, 0.1);
+
+border-radius: 10px;
+
+text-align: center;
+
+transition: all 0.3s ease;
+
+}
+
+
+
+.profile-item:hover {
+
+transform: translateY(-3px);
+
+border-color: rgba(255, 255, 255, 0.3);
+
+}
+
+
+
+.profile-label {
+
+font-weight: 700;
+
+margin-bottom: 10px;
+
+opacity: 0.6;
+
+font-size: 0.9rem;
+
+text-transform: uppercase;
+
+letter-spacing: 1px;
+
+}
+
+
+
+.profile-value {
+
+font-size: 1.1rem;
+
+font-weight: 500;
+
+}
+
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+
+nav {
+
+padding: 20px 30px;
+
+}
+
+
+
+.nav-links {
+
+display: none;
+
+}
+
+
+
+.about-content {
+
+grid-template-columns: 1fr;
+
+gap: 50px;
+
+}
+
+
+
+.features-grid {
+
+grid-template-columns: 1fr;
+
+gap: 30px;
+
+}
+
+
+
+.contact-info {
+
+flex-direction: column;
+
+gap: 30px;
+
+}
+
+
+
+.cards-container {
+
+grid-template-columns: 1fr;
+
+gap: 20px;
+
+}
+
+}
+
+
+
+/* Smooth scrolling */
+
+html {
+
+scroll-behavior: smooth;
+
+}
+
+
+
+/* Loading animation */
+
+.fade-in {
+
+opacity: 0;
+
+transform: translateY(50px);
+
+transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+
+
+
+.fade-in.visible {
+
+opacity: 1;
+
+transform: translateY(0);
+
+}
+
+
+
+/* Parallax elements */
+
+.parallax {
+
+transition: transform 0.1s ease-out;
+
+}
+
+</style>
+
 </head>
+
 <body>
-    <div id="transition-overlay"></div>
-    <div class="cursor"></div>
-    
-    <!-- Canvas Container for Liquid Effect -->
-    <div id="canvas-container"></div>
 
-    <div id="page-content">
-        <nav>
-            <div class="nav-container">
-                <div class="logo">CanveX</div>
-                <ul class="nav-links">
-                    <li><a href="project.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+<!-- Custom Cursor -->
 
-        <section id="home" class="hero">
-            <div class="hero-content fade-in">
-                <!-- This empty div is where our curtains.js plane will be -->
-                <div id="liquid-logo" class="hero-logo-container">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAKACAYAAABn90xFAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAgAElEQVR4nOy9aXQUV5bn+7/33HvP3Ltn5s6dM3NmhBAgCQkQoihVqVRKVam1Wq1Wq1W11qpttdZaq1W1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq6q1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wq1Wg" alt="CanveX Logo" class="hero-logo">
-                </div>
-                <p class="hero-subtitle">Transforming Ideas Into Visual Masterpieces</p>
-            </div>
-            <div class="scroll-indicator"></div>
-        </section>
-
-        <section class="features-section">
-            <h2 class="section-title fade-in">WHY CHOOSE US</h2>
-            <div class="features-grid">
-                 <div class="feature-item fade-in">
-                    <div class="feature-number">01</div>
-                    <h3 class="feature-title">Creative Expertise</h3>
-                    <p class="feature-description">Exceptional skills with an imaginative approach to design, bringing innovation to every project.</p>
-                </div>
-                <div class="feature-item fade-in">
-                    <div class="feature-number">02</div>
-                    <h3 class="feature-title">Versatile Portfolio</h3>
-                    <p class="feature-description">Diverse projects across multiple industries with adaptable creative approaches.</p>
-                </div>
-                <div class="feature-item fade-in">
-                    <div class="feature-number">03</div>
-                    <h3 class="feature-title">Client-Centric</h3>
-                    <p class="feature-description">Your vision is our priority, aligning every design with your unique identity.</p>
-                </div>
-                <div class="feature-item fade-in">
-                    <div class="feature-number">04</div>
-                    <h3 class="feature-title">Timely Delivery</h3>
-                    <p class="feature-description">Streamlined process ensuring projects are completed on time without compromising quality.</p>
-                </div>
-                <div class="feature-item fade-in">
-                    <div class="feature-number">05</div>
-                    <h3 class="feature-title">Competitive Pricing</h3>
-                    <p class="feature-description">Transparent pricing structure offering exceptional value for businesses of all sizes.</p>
-                </div>
-                <div class="feature-item fade-in">
-                    <div class="feature-number">06</div>
-                    <h3 class="feature-title">Clear Communication</h3>
-                    <p class="feature-description">Consistent communication throughout the design process with always-available support.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="profile-section">
-            <h2 class="section-title fade-in">COMPANY PROFILE</h2>
-             <div class="profile-grid">
-                <div class="profile-item fade-in">
-                    <div class="profile-label">Industry</div>
-                    <div class="profile-value">Design Services</div>
-                </div>
-                <div class="profile-item fade-in">
-                    <div class="profile-label">Team Size</div>
-                    <div class="profile-value">2-10 employees</div>
-                </div>
-                <div class="profile-item fade-in">
-                    <div class="profile-label">Location</div>
-                    <div class="profile-value">Nashik, Maharashtra</div>
-                </div>
-                <div class="profile-item fade-in">
-                    <div class="profile-label">Founded</div>
-                    <div class="profile-value">2023</div>
-                </div>
-                <div class="profile-item fade-in">
-                    <div class="profile-label">Specialties</div>
-                    <div class="profile-value">Fast delivery, affordable pricing, talented team, always-on-call service</div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Curtains.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/curtainsjs@7.2.0/dist/curtains.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Custom cursor
-            const cursor = document.querySelector('.cursor');
-            document.addEventListener('mousemove', e => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-
-            // Page Transition
-            document.querySelectorAll('a[href]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    const isExternal = this.hasAttribute('target');
-                    const isAnchor = href.startsWith('#');
-
-                    if (href && !isExternal && !isAnchor) {
-                        e.preventDefault();
-                        document.body.classList.add('is-leaving');
-                        setTimeout(() => {
-                            window.location.href = href;
-                        }, 800);
-                    }
-                });
-            });
-
-            // Scroll animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    } else {
-                        // Optional: remove class to re-trigger animation on scroll up
-                        entry.target.classList.remove('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+<div class="cursor"></div>
 
 
-            // --- LIQUID SCROLL EFFECT ---
-            // Vertex Shader: determines how the vertices of the plane are positioned.
-            const vertexShader = `
-                precision mediump float;
-                attribute vec3 aVertexPosition;
-                attribute vec2 aTextureCoord;
-                uniform mat4 uMVMatrix;
-                uniform mat4 uPMatrix;
-                
-                // Uniforms for distortion
-                uniform float uScrollSpeed;
-                uniform float uTime;
-                
-                varying vec2 vTextureCoord;
 
-                void main(void) {
-                    vec3 vertexPosition = aVertexPosition;
-                    // Apply a sine wave distortion based on scroll and time
-                    vertexPosition.y += sin(vertexPosition.x * 2.5 + uTime * 0.05) * uScrollSpeed * 0.005;
-                    vertexPosition.x += cos(vertexPosition.y * 2.5 + uTime * 0.05) * uScrollSpeed * 0.005;
-                    
-                    gl_Position = uPMatrix * uMVMatrix * vec4(vertexPosition, 1.0);
-                    vTextureCoord = aTextureCoord;
-                }
-            `;
+<!-- Navigation -->
 
-            // Fragment Shader: determines the color of each pixel.
-            const fragmentShader = `
-                precision mediump float;
-                varying vec2 vTextureCoord;
-                uniform sampler2D uSampler;
+<nav>
 
-                void main(void) {
-                    gl_FragColor = texture2D(uSampler, vTextureCoord);
-                }
-            `;
-            
-            // Initialize Curtains.js
-            const curtains = new Curtains({
-                container: "canvas-container",
-                pixelRatio: Math.min(1.5, window.devicePixelRatio)
-            });
+<div class="nav-container">
 
-            // Plane parameters
-            const planeElement = document.getElementById("liquid-logo");
-            const params = {
-                vertexShader: vertexShader,
-                fragmentShader: fragmentShader,
-                widthSegments: 20,
-                heightSegments: 20,
-                uniforms: {
-                    scrollSpeed: {
-                        name: "uScrollSpeed",
-                        type: "1f",
-                        value: 0,
-                    },
-                    time: {
-                        name: "uTime",
-                        type: "1f",
-                        value: 0,
-                    },
-                },
-            };
+<div class="logo">CanveX</div>
 
-            const liquidPlane = new Plane(curtains, planeElement, params);
-            
-            let lastScroll = 0;
-            let scrollSpeed = 0;
+<ul class="nav-links">
 
-            liquidPlane.onReady(() => {
-                // Animate the time uniform
-                curtains.onRender(() => {
-                    liquidPlane.uniforms.time.value++;
-                    
-                    // Damp the scroll speed value for a smoother effect
-                    scrollSpeed += (0 - scrollSpeed) * 0.05;
-                    liquidPlane.uniforms.scrollSpeed.value = scrollSpeed;
-                });
-            });
+<li><a href="#home">Home</a></li>
 
-            // Track scroll to update the distortion effect
-            window.addEventListener("scroll", () => {
-                const currentScroll = window.pageYOffset;
-                scrollSpeed = currentScroll - lastScroll;
-                lastScroll = currentScroll;
-            });
-        });
-    </script>
+<li><a href="About.html">About</a></li>
+
+<li><a href="Services.html">Services</a></li>
+
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+</div>
+
+</nav>
+
+
+
+<!-- Hero Section -->
+
+<section id="home" class="hero">
+
+<div class="hero-bg"></div>
+
+<div class="hero-content fade-in">
+
+<div class="hero-logo-container">
+
+<img src="mark3W.png" alt="CanveX Logo" class="hero-logo" style="filter: brightness(0) invert(1);">
+
+</div>
+
+<p class="hero-subtitle">Transforming Ideas Into Visual Masterpieces</p>
+
+</div>
+
+<div class="scroll-indicator"></div>
+
+</section>
+
+
+
+<!-- Interactive Cards Section -->
+
+
+
+
+<!-- About Section -->
+
+
+
+
+<!-- Features Section -->
+
+<section class="features-section">
+
+<h2 class="section-title fade-in">WHY CHOOSE US</h2>
+
+<div class="features-grid">
+
+<div class="feature-item fade-in">
+
+<div class="feature-number">01</div>
+
+<h3 class="feature-title">Creative Expertise</h3>
+
+<p class="feature-description">Exceptional skills with an imaginative approach to design, bringing innovation to every project.</p>
+
+</div>
+
+<div class="feature-item fade-in">
+
+<div class="feature-number">02</div>
+
+<h3 class="feature-title">Versatile Portfolio</h3>
+
+<p class="feature-description">Diverse projects across multiple industries with adaptable creative approaches.</p>
+
+</div>
+
+<div class="feature-item fade-in">
+
+<div class="feature-number">03</div>
+
+<h3 class="feature-title">Client-Centric</h3>
+
+<p class="feature-description">Your vision is our priority, aligning every design with your unique identity.</p>
+
+</div>
+
+<div class="feature-item fade-in">
+
+<div class="feature-number">04</div>
+
+<h3 class="feature-title">Timely Delivery</h3>
+
+<p class="feature-description">Streamlined process ensuring projects are completed on time without compromising quality.</p>
+
+</div>
+
+<div class="feature-item fade-in">
+
+<div class="feature-number">05</div>
+
+<h3 class="feature-title">Competitive Pricing</h3>
+
+<p class="feature-description">Transparent pricing structure offering exceptional value for businesses of all sizes.</p>
+
+</div>
+
+<div class="feature-item fade-in">
+
+<div class="feature-number">06</div>
+
+<h3 class="feature-title">Clear Communication</h3>
+
+<p class="feature-description">Consistent communication throughout the design process with always-available support.</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
+<!-- Company Profile -->
+
+<section class="profile-section">
+
+<h2 class="section-title fade-in">COMPANY PROFILE</h2>
+
+<div class="profile-grid">
+
+<div class="profile-item fade-in">
+
+<div class="profile-label">Industry</div>
+
+<div class="profile-value">Design Services</div>
+
+</div>
+
+<div class="profile-item fade-in">
+
+<div class="profile-label">Team Size</div>
+
+<div class="profile-value">2-10 employees</div>
+
+</div>
+
+<div class="profile-item fade-in">
+
+<div class="profile-label">Location</div>
+
+<div class="profile-value">Nashik, Maharashtra</div>
+
+</div>
+
+<div class="profile-item fade-in">
+
+<div class="profile-label">Founded</div>
+
+<div class="profile-value">2023</div>
+
+</div>
+
+<div class="profile-item fade-in">
+
+<div class="profile-label">Specialties</div>
+
+<div class="profile-value">Fast delivery, affordable pricing, talented team, always-on-call service</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
+
 </body>
-</html>
 
+
+
+<script src="project.js"></script>
+
+</html>
