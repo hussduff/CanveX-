@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CanveX - Our Services</title>
+    <meta name="description" content="Professional SEO and Website Design & Development services from CanveX Design Studio. We help startups and businesses grow with responsive, SEO-friendly websites and sustainable optimization strategies.">
+    <title>CanveX - SEO & Web Development Services</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -12,7 +18,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: #000;
             color: #fff;
             overflow-x: hidden;
@@ -69,6 +75,7 @@
         }
 
         .logo {
+            font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
             font-weight: 900;
             letter-spacing: -2px;
@@ -94,6 +101,7 @@
         
         /* Section Title */
         .section-title {
+            font-family: 'Montserrat', sans-serif;
             text-align: center;
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 900;
@@ -108,50 +116,82 @@
             background: #050505;
         }
 
-        .services-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
+        .service-detail-section {
             background: linear-gradient(145deg, #111, #000);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 40px;
+            padding: 50px;
+            margin-bottom: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
         }
-
-        .service-card:hover {
-            transform: translateY(-10px);
+        
+        .service-detail-section:hover {
             border-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 25px 50px rgba(0,0,0, 0.6);
         }
 
-        .service-icon {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #fff;
+        .service-detail-section .main-title { /* H1 from content */
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
             margin-bottom: 30px;
-            display: inline-block;
+            line-height: 1.2;
         }
 
-        .service-title {
+        .service-detail-section .sub-heading { /* H2 from content */
+            font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-top: 50px;
+            margin-bottom: 25px;
+            border-left: 4px solid #fff;
+            padding-left: 15px;
         }
 
-        .service-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            opacity: 0.8;
+        .service-detail-section .service-item-title { /* H3 from content */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 15px;
         }
         
+        .service-detail-section p, .service-detail-section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .service-detail-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-detail-section li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 10px;
+        }
+
+        .service-detail-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        
+        .call-to-action {
+            margin-top: 50px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
         /* Footer */
         footer {
             padding: 40px 50px;
@@ -183,15 +223,14 @@
             nav { padding: 20px 30px; }
             .nav-links { display: none; }
             .services-section { padding: 120px 20px 50px; }
+            .service-detail-section { padding: 30px; }
         }
 
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
     <div class="cursor"></div>
 
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">CanveX</div>
@@ -204,47 +243,92 @@
         </div>
     </nav>
     
-    <!-- Services Section -->
     <section class="services-section">
         <h2 class="section-title fade-in">OUR SERVICES</h2>
-        <div class="services-container">
-            <!-- Service Item 1 -->
-            <div class="service-card fade-in">
-                <div class="service-icon">✦</div>
-                <h3 class="service-title">Graphic Design</h3>
-                <p class="service-description">From memorable logos to stunning marketing materials, we create visuals that tell your story and captivate your audience with clarity and style.</p>
-            </div>
-            <!-- Service Item 2 -->
-            <div class="service-card fade-in">
-                <div class="service-icon">◆</div>
-                <h3 class="service-title">Illustration</h3>
-                <p class="service-description">Our custom illustrations bring your unique ideas to life, adding a touch of artistic flair and creative precision that makes your brand unforgettable.</p>
-            </div>
-            <!-- Service Item 3 -->
-            <div class="service-card fade-in">
-                <div class="service-icon">▲</div>
-                <h3 class="service-title">Branding</h3>
-                <p class="service-description">We build comprehensive brand identities from the ground up, ensuring a consistent and memorable experience that resonates with your target audience.</p>
-            </div>
-            <!-- Service Item 4 -->
-            <div class="service-card fade-in">
-                <div class="service-icon">●</div>
-                <h3 class="service-title">Website Development</h3>
-                <p class="service-description">We design and develop beautiful, responsive, and user-friendly websites that not only look great but also perform flawlessly to meet your business goals.</p>
-            </div>
-            <!-- Service Item 5 -->
-            <div class="service-card fade-in">
-                <div class="service-icon">📈</div>
-                <h3 class="service-title">SEO</h3>
-                <p class="service-description">Boost your online visibility and drive organic traffic with our data-driven SEO strategies, tailored to place you at the top of search engine results.</p>
-            </div>
-            <!-- Service Item 6 -->
-            <div class="service-card fade-in">
-                <div class="service-icon">📱</div>
-                <h3 class="service-title">Social Media Management</h3>
-                <p class="service-description">We manage your social media presence with engaging content and strategic campaigns, building a strong community around your brand.</p>
-            </div>
+        
+        <div class="service-detail-section fade-in">
+            <h2 class="main-title">SEO Services for Startups and Businesses</h2>
+            <p>At CanveX Design Studio, we help brands grow online with SEO services that improve visibility, increase traffic, and generate leads. Our SEO strategies are designed for startups, small businesses, and growing brands that want long-term results.</p>
+            
+            <h3 class="sub-heading">Why Choose CanveX for SEO?</h3>
+            <p>Search Engine Optimization (SEO) is more than just keywords. It’s about creating a strong digital presence that your audience can find and trust. We combine creative content, technical SEO, and data-driven strategies to ensure your business ranks higher and reaches the right people.</p>
+            
+            <h3 class="sub-heading">Our SEO Services</h3>
+            
+            <h4 class="service-item-title">Keyword Research & Strategy</h4>
+            <p>We analyze your industry, competitors, and customer search behavior to build a keyword strategy that matches what people are actually looking for. This ensures your website gets organic traffic from the right audience.</p>
+            
+            <h4 class="service-item-title">On-Page SEO Optimization</h4>
+            <p>From title tags and meta descriptions to content structure and internal linking, we optimize every page for better rankings and user experience.</p>
+            
+            <h4 class="service-item-title">Technical SEO</h4>
+            <p>We fix backend issues like site speed, mobile-friendliness, XML sitemaps, and indexing so search engines can crawl and rank your site easily.</p>
+            
+            <h4 class="service-item-title">Content Writing & Optimization</h4>
+            <p>Our team creates SEO-friendly content that balances creativity with strategy. Blogs, landing pages, and web content are written with keywords to improve rankings while engaging readers.</p>
+            
+            <h4 class="service-item-title">Local SEO Services</h4>
+            <p>For businesses targeting local customers, we optimize Google Business Profile, maps, and local citations to help you appear in local searches.</p>
+            
+            <h4 class="service-item-title">Link Building & Off-Page SEO</h4>
+            <p>We build high-quality backlinks through guest posting, outreach, and partnerships boosting your site’s authority in search results.</p>
+            
+            <h3 class="sub-heading">Benefits of Our SEO Services</h3>
+            <ul>
+                <li>Higher visibility in Google search results</li>
+                <li>Increased organic traffic and leads</li>
+                <li>Long-term growth with sustainable SEO strategies</li>
+                <li>Better user experience for your website visitors</li>
+                <li>Stronger brand authority online</li>
+            </ul>
+            
+            <h3 class="sub-heading">Let’s Optimize Your Growth</h3>
+            <p>Your business deserves more than just clicks, it deserves customers and conversions. At CanveX, our SEO services are tailored to your business goals. Whether you’re a startup or an established brand, we help you build a digital presence that lasts.</p>
+            <p class="call-to-action">Ready to rank higher? Contact CanveX Design Studio today and let’s grow together.</p>
         </div>
+
+        <div class="service-detail-section fade-in">
+            <h2 class="main-title">Website Design and Development Services for Modern Brands</h2>
+            <p>At CanveX Design Studio, we create websites that are more than just visuals; they are digital experiences designed to attract, engage, and convert. From design to development, our websites are fast, responsive, and tailored to your brand’s goals.</p>
+            
+            <h3 class="sub-heading">Why Invest in Professional Web Design?</h3>
+            <p>Your website is your digital storefront. It’s often the first impression potential clients or customers have of your business. A poorly designed website can cost you credibility, while a professional, user-friendly site builds trust and drives growth.</p>
+
+            <h3 class="sub-heading">Our Website Design & Development Services</h3>
+
+            <h4 class="service-item-title">Custom Website Design</h4>
+            <p>We design unique, brand-focused websites that reflect your identity and connect with your target audience. Clean layouts, aesthetic visuals, and intuitive navigation ensure your website stands out.</p>
+
+            <h4 class="service-item-title">Responsive Web Development</h4>
+            <p>Every website we build is mobile-friendly and responsive, delivering a seamless experience across desktops, tablets, and smartphones.</p>
+
+            <h4 class="service-item-title">E-Commerce Solutions</h4>
+            <p>From product catalogs to payment gateways, we develop secure and scalable e-commerce websites that make online selling effortless and user-friendly.</p>
+
+            <h4 class="service-item-title">UI/UX Design</h4>
+            <p>Our UI/UX design services focus on creating websites that are not only beautiful but also highly functional. Smooth navigation, clear CTAs, and engaging layouts keep visitors exploring longer.</p>
+
+            <h4 class="service-item-title">SEO-Optimized Websites</h4>
+            <p>We build websites with SEO best practices integrated, ensuring your site ranks higher on Google and brings in consistent organic traffic.</p>
+
+            <h4 class="service-item-title">Website Maintenance & Support</h4>
+            <p>We don’t stop at launch. Our team provides ongoing maintenance, updates, and technical support to keep your website secure, fast, and reliable.</p>
+
+            <h3 class="sub-heading">Benefits of Our Web Design & Development Services</h3>
+            <ul>
+                <li>Professional websites tailored to your brand identity</li>
+                <li>Fast-loading, mobile-responsive designs</li>
+                <li>Higher customer engagement and conversions</li>
+                <li>E-commerce capabilities for product-based businesses</li>
+                <li>SEO-ready structure for better search rankings</li>
+                <li>Long-term technical support and maintenance</li>
+            </ul>
+
+            <h3 class="sub-heading">Let’s Build Your Digital Presence</h3>
+            <p>At CanveX, we believe your website should do more than look good; it should work for your business 24/7. Our creative team combines design, technology, and strategy to deliver websites that inspire and convert.</p>
+            <p class="call-to-action">Ready for a website that grows your business? Contact CanveX Design Studio today and let’s get started.</p>
+        </div>
+
     </section>
 
     <footer>
@@ -277,7 +361,8 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 } else {
-                    entry.target.classList.remove('visible');
+                    // Optional: remove class to re-animate on scroll up
+                    // entry.target.classList.remove('visible'); 
                 }
             });
         }, { threshold: 0.1 });
@@ -295,8 +380,8 @@
             });
         });
         
-        // Enhanced hover effects
-        document.querySelectorAll('.service-card, .nav-links a').forEach(element => {
+        // Enhanced hover effects for cursor
+        document.querySelectorAll('.service-detail-section, .nav-links a').forEach(element => {
             element.addEventListener('mouseenter', function() {
                 cursor.style.transform = 'scale(2)';
             });
