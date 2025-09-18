@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional SEO and Website Design & Development services from CanveX Design Studio. We help startups and businesses grow with responsive, SEO-friendly websites and sustainable optimization strategies.">
-    <title>CanveX - SEO & Web Development Services</title>
+    <meta name="description" content="Explore professional SEO and Website Design services from CanveX. We build visually engaging, high-performing digital solutions for startups and businesses.">
+    <title>CanveX - Our Services</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --background-dark: #000;
+            --background-light: #050505;
+            --card-background: #111;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #fff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-color: #00bfff; /* Deep Sky Blue for icons */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -19,218 +29,128 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #000;
-            color: #fff;
+            background: var(--background-dark);
+            color: var(--text-primary);
             overflow-x: hidden;
             cursor: none;
-            opacity: 0; /* Initially hidden for fade-in */
+            opacity: 0;
             animation: fadeInAnimation ease 1s forwards;
         }
 
-        /* Page Transition Animation */
-        @keyframes fadeInAnimation {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
+        /* Page & Cursor Animations */
+        @keyframes fadeInAnimation { 0% { opacity: 0; } 100% { opacity: 1; } }
+        @keyframes fadeOutAnimation { 0% { opacity: 1; } 100% { opacity: 0; } }
+        body.fade-out { animation: fadeOutAnimation ease 1s forwards; }
 
-        @keyframes fadeOutAnimation {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        body.fade-out {
-            animation: fadeOutAnimation ease 1s forwards;
-        }
-
-        /* Custom Cursor */
         .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
+            position: fixed; width: 20px; height: 20px;
+            background: var(--text-primary); border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            transition: all 0.1s ease; mix-blend-mode: difference;
         }
 
         /* Navigation */
         nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 30px 50px;
-            background: rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 30px 50px; background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color);
         }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-2px);
-        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: -2px; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 1.1rem; transition: all 0.3s ease; }
+        .nav-links a:hover { transform: translateY(-2px); }
         
-        /* Section Title */
+        /* Main Section Styling */
+        .services-section { padding: 180px 50px 120px; background: var(--background-light); }
         .section-title {
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            margin-bottom: 100px;
-            opacity: 0.1;
-            letter-spacing: -3px;
-        }
-        
-        /* Services Section */
-        .services-section {
-            padding: 180px 50px 120px;
-            background: #050505;
+            font-family: 'Montserrat', sans-serif; text-align: center;
+            font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
+            margin-bottom: 80px; opacity: 0.1; letter-spacing: -3px;
         }
 
-        .service-detail-section {
-            background: linear-gradient(145deg, #111, #000);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 50px;
-            margin-bottom: 60px;
+        /* Intro Section for each Service Category */
+        .service-category-intro {
+            display: flex;
+            gap: 50px;
+            align-items: center;
             max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 auto 80px auto;
+            background: var(--card-background);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .intro-text .main-title {
+            font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700; line-height: 1.2; margin-bottom: 20px;
+        }
+        .intro-text p { font-size: 1.1rem; line-height: 1.8; color: var(--text-secondary); }
+        .intro-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            object-fit: cover;
+            aspect-ratio: 1/1;
         }
         
-        .service-detail-section:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 25px 50px rgba(0,0,0, 0.6);
+        /* Grid for Service Cards */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .service-detail-section .main-title { /* H1 from content */
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            font-weight: 700;
+        /* New Service Card Design */
+        .service-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0,0,0, 0.5);
+        }
+        .service-icon {
+            width: 60px; height: 60px;
+            background: rgba(0, 191, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 30px;
-            line-height: 1.2;
         }
-
-        .service-detail-section .sub-heading { /* H2 from content */
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: 50px;
-            margin-bottom: 25px;
-            border-left: 4px solid #fff;
-            padding-left: 15px;
-        }
-
-        .service-detail-section .service-item-title { /* H3 from content */
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .service-detail-section p, .service-detail-section li {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.8;
-            margin-bottom: 15px;
-        }
-
-        .service-detail-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .service-detail-section li {
-            position: relative;
-            padding-left: 35px;
-            margin-bottom: 10px;
-        }
-
-        .service-detail-section li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            color: #fff;
-            font-size: 1.2rem;
-        }
-        
-        .call-to-action {
-            margin-top: 50px;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
+        .service-icon svg { width: 30px; height: 30px; color: var(--accent-color); }
+        .service-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
+        .service-description { font-size: 1rem; line-height: 1.7; color: var(--text-secondary); }
 
         /* Footer */
-        footer {
-            padding: 40px 50px;
-            text-align: center;
-            background: #000;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        footer p {
-            opacity: 0.6;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
+        footer { padding: 40px 50px; text-align: center; background: var(--background-dark); border-top: 1px solid var(--border-color); }
+        footer p { color: var(--text-secondary); font-size: 0.9rem; letter-spacing: 1px; }
 
-        /* Fade-in Animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* Fade-in Animation on Scroll */
+        .fade-in { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
         
-        /* Responsive */
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .service-category-intro { flex-direction: column; text-align: center; }
+        }
         @media (max-width: 768px) {
             nav { padding: 20px 30px; }
             .nav-links { display: none; }
             .services-section { padding: 120px 20px 50px; }
-            .service-detail-section { padding: 30px; }
+            .service-category-intro, .service-card { padding: 30px; }
         }
-
     </style>
 </head>
 <body>
     <div class="cursor"></div>
-
     <nav>
         <div class="nav-container">
             <div class="logo">CanveX</div>
@@ -243,126 +163,94 @@
         </div>
     </nav>
     
-    <section class="services-section">
-        <h2 class="section-title fade-in">OUR SERVICES</h2>
+    <main class="services-section">
+        <h1 class="section-title fade-in">OUR SERVICES</h1>
         
-        <div class="service-detail-section fade-in">
-            <h2 class="main-title">SEO Services for Startups and Businesses</h2>
-            <p>At CanveX Design Studio, we help brands grow online with SEO services that improve visibility, increase traffic, and generate leads. Our SEO strategies are designed for startups, small businesses, and growing brands that want long-term results.</p>
-            
-            <h3 class="sub-heading">Why Choose CanveX for SEO?</h3>
-            <p>Search Engine Optimization (SEO) is more than just keywords. It’s about creating a strong digital presence that your audience can find and trust. We combine creative content, technical SEO, and data-driven strategies to ensure your business ranks higher and reaches the right people.</p>
-            
-            <h3 class="sub-heading">Our SEO Services</h3>
-            
-            <h4 class="service-item-title">Keyword Research & Strategy</h4>
-            <p>We analyze your industry, competitors, and customer search behavior to build a keyword strategy that matches what people are actually looking for. This ensures your website gets organic traffic from the right audience.</p>
-            
-            <h4 class="service-item-title">On-Page SEO Optimization</h4>
-            <p>From title tags and meta descriptions to content structure and internal linking, we optimize every page for better rankings and user experience.</p>
-            
-            <h4 class="service-item-title">Technical SEO</h4>
-            <p>We fix backend issues like site speed, mobile-friendliness, XML sitemaps, and indexing so search engines can crawl and rank your site easily.</p>
-            
-            <h4 class="service-item-title">Content Writing & Optimization</h4>
-            <p>Our team creates SEO-friendly content that balances creativity with strategy. Blogs, landing pages, and web content are written with keywords to improve rankings while engaging readers.</p>
-            
-            <h4 class="service-item-title">Local SEO Services</h4>
-            <p>For businesses targeting local customers, we optimize Google Business Profile, maps, and local citations to help you appear in local searches.</p>
-            
-            <h4 class="service-item-title">Link Building & Off-Page SEO</h4>
-            <p>We build high-quality backlinks through guest posting, outreach, and partnerships boosting your site’s authority in search results.</p>
-            
-            <h3 class="sub-heading">Benefits of Our SEO Services</h3>
-            <ul>
-                <li>Higher visibility in Google search results</li>
-                <li>Increased organic traffic and leads</li>
-                <li>Long-term growth with sustainable SEO strategies</li>
-                <li>Better user experience for your website visitors</li>
-                <li>Stronger brand authority online</li>
-            </ul>
-            
-            <h3 class="sub-heading">Let’s Optimize Your Growth</h3>
-            <p>Your business deserves more than just clicks, it deserves customers and conversions. At CanveX, our SEO services are tailored to your business goals. Whether you’re a startup or an established brand, we help you build a digital presence that lasts.</p>
-            <p class="call-to-action">Ready to rank higher? Contact CanveX Design Studio today and let’s grow together.</p>
+        <!-- SEO Services Section -->
+        <section class="service-category-intro fade-in">
+            <div class="intro-text">
+                <h2 class="main-title">SEO for Startups & Businesses</h2>
+                <p>We help brands grow online with SEO services that improve visibility, increase traffic, and generate leads. Our strategies are designed for long-term, sustainable results.</p>
+            </div>
+            <div class="intro-image">
+                
+
+[Image of a futuristic data analytics dashboard]
+
+            </div>
+        </section>
+
+        <div class="service-grid">
+            <!-- Card 1: Keyword Strategy -->
+            <div class="service-card fade-in">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg></div>
+                <h3 class="service-title">Keyword Strategy</h3>
+                <p class="service-description">We analyze your industry and competitors to find high-value keywords that drive relevant organic traffic to your site.</p>
+            </div>
+            <!-- Card 2: On-Page SEO -->
+            <div class="service-card fade-in">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                <h3 class="service-title">On-Page SEO</h3>
+                <p class="service-description">We optimize titles, meta descriptions, content structure, and internal links for better rankings and user experience.</p>
+            </div>
+            <!-- Card 3: Technical SEO -->
+            <div class="service-card fade-in">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 4.5a7.5 7.5 0 100 15 7.5 7.5 0 000-15z" /><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 10.5h.008v.008h-.008v-.008zM10.5 7.5v.008h.008V7.5h-.008zm0 6h.008v.008h-.008v-.008z" /></svg></div>
+                <h3 class="service-title">Technical SEO</h3>
+                <p class="service-description">We fix backend issues like site speed, mobile-friendliness, and indexing so search engines can easily crawl your site.</p>
+            </div>
         </div>
 
-        <div class="service-detail-section fade-in">
-            <h2 class="main-title">Website Design and Development Services for Modern Brands</h2>
-            <p>At CanveX Design Studio, we create websites that are more than just visuals; they are digital experiences designed to attract, engage, and convert. From design to development, our websites are fast, responsive, and tailored to your brand’s goals.</p>
-            
-            <h3 class="sub-heading">Why Invest in Professional Web Design?</h3>
-            <p>Your website is your digital storefront. It’s often the first impression potential clients or customers have of your business. A poorly designed website can cost you credibility, while a professional, user-friendly site builds trust and drives growth.</p>
+        <!-- Website Development Section -->
+        <section class="service-category-intro fade-in" style="margin-top: 120px;">
+             <div class="intro-image">
+                
+            </div>
+            <div class="intro-text">
+                <h2 class="main-title">Web Design for Modern Brands</h2>
+                <p>We create websites that are more than just visuals; they are fast, responsive, and tailored digital experiences designed to attract, engage, and convert.</p>
+            </div>
+        </section>
 
-            <h3 class="sub-heading">Our Website Design & Development Services</h3>
-
-            <h4 class="service-item-title">Custom Website Design</h4>
-            <p>We design unique, brand-focused websites that reflect your identity and connect with your target audience. Clean layouts, aesthetic visuals, and intuitive navigation ensure your website stands out.</p>
-
-            <h4 class="service-item-title">Responsive Web Development</h4>
-            <p>Every website we build is mobile-friendly and responsive, delivering a seamless experience across desktops, tablets, and smartphones.</p>
-
-            <h4 class="service-item-title">E-Commerce Solutions</h4>
-            <p>From product catalogs to payment gateways, we develop secure and scalable e-commerce websites that make online selling effortless and user-friendly.</p>
-
-            <h4 class="service-item-title">UI/UX Design</h4>
-            <p>Our UI/UX design services focus on creating websites that are not only beautiful but also highly functional. Smooth navigation, clear CTAs, and engaging layouts keep visitors exploring longer.</p>
-
-            <h4 class="service-item-title">SEO-Optimized Websites</h4>
-            <p>We build websites with SEO best practices integrated, ensuring your site ranks higher on Google and brings in consistent organic traffic.</p>
-
-            <h4 class="service-item-title">Website Maintenance & Support</h4>
-            <p>We don’t stop at launch. Our team provides ongoing maintenance, updates, and technical support to keep your website secure, fast, and reliable.</p>
-
-            <h3 class="sub-heading">Benefits of Our Web Design & Development Services</h3>
-            <ul>
-                <li>Professional websites tailored to your brand identity</li>
-                <li>Fast-loading, mobile-responsive designs</li>
-                <li>Higher customer engagement and conversions</li>
-                <li>E-commerce capabilities for product-based businesses</li>
-                <li>SEO-ready structure for better search rankings</li>
-                <li>Long-term technical support and maintenance</li>
-            </ul>
-
-            <h3 class="sub-heading">Let’s Build Your Digital Presence</h3>
-            <p>At CanveX, we believe your website should do more than look good; it should work for your business 24/7. Our creative team combines design, technology, and strategy to deliver websites that inspire and convert.</p>
-            <p class="call-to-action">Ready for a website that grows your business? Contact CanveX Design Studio today and let’s get started.</p>
+        <div class="service-grid">
+             <!-- Card 4: Custom Design -->
+            <div class="service-card fade-in">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.998 15.998 0 011.622-3.385m5.043.025a2.25 2.25 0 012.4-2.245 4.5 4.5 0 00-8.4 2.245c0 .399.078.78.22 1.128zm0 0a15.998 15.998 0 00-3.388 1.62m5.043-.025a15.998 15.998 0 01-1.622 3.385" /></svg></div>
+                <h3 class="service-title">Custom Design</h3>
+                <p class="service-description">We design unique, brand-focused websites that reflect your identity with clean layouts and intuitive navigation.</p>
+            </div>
+             <!-- Card 5: Responsive Dev -->
+            <div class="service-card fade-in">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg></div>
+                <h3 class="service-title">Responsive Development</h3>
+                <p class="service-description">Every website we build is mobile-friendly, delivering a seamless experience across desktops, tablets, and smartphones.</p>
+            </div>
+             <!-- Card 6: E-Commerce -->
+            <div class="service-card fade-in">
+                <div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.831a.75.75 0 00-.543-.922l-1.348-.449M7.5 14.25L5.106 5.165A2.25 2.25 0 002.854 3H2.25" /></svg></div>
+                <h3 class="service-title">E-Commerce Solutions</h3>
+                <p class="service-description">We develop secure and scalable e-commerce sites that make online selling effortless for you and your customers.</p>
+            </div>
         </div>
-
-    </section>
+    </main>
 
     <footer>
         <p>© Canvex | Amravati, India | Design, Develop, & Dominate.</p>
     </footer>
 
     <script>
-        // Custom cursor
+        // Custom cursor logic
         const cursor = document.querySelector('.cursor');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.1;
-            cursorY += (mouseY - cursorY) * 0.1;
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
         // Scroll animations
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                } else {
-                    // Optional: remove class to re-animate on scroll up
-                    // entry.target.classList.remove('visible'); 
                 }
             });
         }, { threshold: 0.1 });
@@ -379,17 +267,13 @@
                 }
             });
         });
-        <!--teat-->
-        // Enhanced hover effects for cursor
-        document.querySelectorAll('.service-detail-section, .nav-links a').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                cursor.style.transform = 'scale(2)';
-            });
-            
-            element.addEventListener('mouseleave', function() {
-                cursor.style.transform = 'scale(1)';
-            });
+        
+        // Enhanced cursor hover effects
+        document.querySelectorAll('.service-card, .nav-links a').forEach(element => {
+            element.addEventListener('mouseenter', () => cursor.style.transform = 'scale(2)');
+            element.addEventListener('mouseleave', () => cursor.style.transform = 'scale(1)');
         });
     </script>
 </body>
 </html>
+
